@@ -1,0 +1,46 @@
+
+// Steps (RUN AS ADMINISTRATOR)
+================================
+// Important : To be able to connect to ASP .NET web api from remote machine you will have to add 
+// following settings in applicationhost.config file which is present in hidden folder. 
+// ProjectFOlder\.vs\projectName\config
+<binding protocol="http" bindingInformation="*:61925:*" />
+<binding protocol="http" bindingInformation="*:61925:192.168.60.140" />
+Replace port number and IP address as per your machine details. 
+Under <sites> tag
+
+1. Start visual studio 
+2. Select new project (language=C# and project type=Web)
+3. Select ASP.Net Web application (.NET framework)
+4. Select empty project and checkbox webapi 
+5. Add Model class "student" with properties such as Id, Name, City 
+6. Add controller class "StudentsController" 
+7. Inside Controller class Add List of students
+public List<Student> _students = new List<Student>
+
+8. Add methods for supporting 4 operations(GET,POST,PUT,DELETE)
+IEnumerable<Student> Get() 
+{
+   return _students;
+}
+
+public void Post(Student student)
+{
+   _students.Add(student);
+}
+
+9. Run application and test application with api address 
+e. g http:12345:/api/students
+(this will invoke get operation)
+
+10. Replace local member list of students with students from database
+11. select manage nuget packages for your project
+12. Select Entity framework
+13. Add class StudentDbContext:DbContext
+14. Add member and constructor
+StudentDbContext()
+: base()
+
+public DbSet<Student> Students {get;set;}
+
+15.
